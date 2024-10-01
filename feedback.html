@@ -1,0 +1,132 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="stylesheet" href="style.css">
+    <title>Feedback Form</title>  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+    <style>  
+        body {  
+            font-family: 'Roboto', sans-serif;  
+            margin: 0;  
+            padding: 0;  
+            background-color: #f4f4f4;  
+            color: #333;  
+        }  
+
+        .container {  
+            max-width: 600px;  
+            margin: 50px auto;  
+            background: #fff;  
+            padding: 20px;  
+            border-radius: 8px;  
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
+        }  
+
+        h2 {  
+            text-align: center;  
+            color: #2c3e50;  
+        }  
+
+        label {  
+            margin-bottom: 5px;  
+            display: block;  
+            font-weight: bold;  
+            color: #34495e;  
+        }  
+
+        input[type="text"],  
+        textarea {  
+            width: 100%;  
+            padding: 10px;  
+            margin-bottom: 20px;  
+            border: 1px solid #ccc;  
+            border-radius: 4px;  
+            box-sizing: border-box;  
+            font-size: 16px;  
+        }  
+
+        button {  
+            width: 100%;  
+            background-color: #990000;  
+            color: white;  
+            padding: 10px;  
+            border: none;  
+            border-radius: 4px;  
+            cursor: pointer;  
+            font-size: 16px;  
+        }  
+
+        button:hover {  
+            background-color: #3498db;  
+        }  
+
+        #thankYouMessage {  
+            display: none;  
+            text-align: center;  
+            margin-top: 20px;  
+            color: #27ae60;  
+            font-weight: bold;  
+            font-size: 18px;  
+        }  
+    </style>  
+</head>  
+<body>  
+
+    <header>
+        <h1>Genie James Arsenal</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<div class="container">  
+    <h2>Feedback Form</h2>  
+    <form id="feedbackForm">  
+        <label for="name">Name:</label>  
+        <input type="text" id="name" placeholder="Your Name" required>  
+
+        <label for="message">Message:</label>  
+        <textarea id="message" placeholder="Your feedback..." rows="5" required></textarea>  
+
+        <button type="submit">Submit</button>  
+    </form>  
+    <div id="thankYouMessage">Thank you for your feedback!</div>  
+</div>  
+
+<!-- Include EmailJS SDK -->  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>  
+<script type="text/javascript">  
+    (function () {  
+        emailjs.init("wNVtHxmtVOOhpBpnV"); // Replace with your actual public key  
+    })();  
+
+    document.getElementById('feedbackForm').addEventListener('submit', function (event) {  
+        event.preventDefault(); // Prevent default form submission  
+
+        // Get form values  
+        const name = document.getElementById('name').value;  
+        const message = document.getElementById('message').value;  
+
+        // Send email using EmailJS  
+        emailjs.send("service_2v3i0d6", "template_baf77on", {  
+            from_name: name,  
+            message: message  
+        })  
+        .then(function (response) {  
+            console.log('SUCCESS!', response.status, response.text);  
+            document.getElementById('thankYouMessage').style.display = 'block'; // Show thank you message  
+            document.getElementById('feedbackForm').reset(); // Reset the form  
+        }, function (error) {  
+            console.log('FAILED...', error);  
+        });  
+    });  
+</script>  
+
+</body>  
+</html>
